@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A World Divided: Superpower Relations, 1943–72 — Revision Booklet</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Bricolage Grotesque & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['"Bricolage Grotesque"', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        paper: '#FAF9F6',
+                        ink: '#18181B',
+                        muted: '#52525B',
+                        borderwarm: '#E6E2D8',
+                        usa: '#1E40AF',
+                        ussr: '#991B1B',
+                        diplomacy: '#065F46',
+                        crisis: '#B45309'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF9F6;
+            color: #18181B;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Bricolage Grotesque', sans-serif;
+        }
+
+        /* Active Recall Masking */
+        .recall-active .recall-mask {
+            background-color: #27272A;
+            color: transparent !important;
+            border-radius: 4px;
+            padding: 1px 6px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            display: inline;
+        }
+
+        .recall-active .recall-mask strong,
+        .recall-active .recall-mask em,
+        .recall-active .recall-mask mark {
+            color: transparent !important;
+            background-color: transparent !important;
+        }
+
+        .recall-active .recall-mask:hover,
+        .recall-active .recall-mask.revealed {
+            background-color: #FEF08A;
+            color: #18181B !important;
+            user-select: auto;
+        }
+
+        .recall-active .recall-mask:hover strong,
+        .recall-active .recall-mask.revealed strong,
+        .recall-active .recall-mask:hover em,
+        .recall-active .recall-mask.revealed em {
+            color: #18181B !important;
+        }
+
+        /* Search Highlight */
+        mark.search-hl {
+            background-color: #FDE047;
+            color: #18181B;
+            padding: 0 2px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6D3CD;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A8A29E;
+        }
+
+        /* Print / A4 PDF Layout */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 14mm 14mm 16mm 14mm;
+            }
+            body {
+                background-color: #FFFFFF !important;
+                color: #000000 !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            #password-gate,
+            #sticky-nav,
+            #study-toolbar,
+            #search-status,
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            .section-container,
+            .searchable-item {
+                display: block !important;
+            }
+            #orgs-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 10px !important;
+            }
+            .card-item, .chapter-block, .timeline-row {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #D4D4D8 !important;
+                background: #FFFFFF !important;
+                margin-bottom: 10px !important;
+            }
+            .recall-mask {
+                background: transparent !important;
+                color: #000000 !important;
+                padding: 0 !important;
+            }
+            main {
+                padding-top: 0 !important;
+                max-width: 100% !important;
+            }
+            .page-break-before {
+                page-break-before: always;
+                break-before: page;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-200 selection:text-zinc-900">
+
+    <!-- =====================================================================
+         1. PASSWORD GATE OVERLAY (Minimal & Cute)
+         ===================================================================== -->
+    <div id="password-gate" class="fixed inset-0 z-50 flex items-center justify-center bg-[#FAF9F6] px-4 transition-opacity duration-300">
+        <div class="w-full max-w-sm bg-white/90 backdrop-blur-sm border border-[#EBE6DC] rounded-3xl shadow-sm p-8 text-center">
+            <form id="password-form" class="space-y-4">
+                <label for="password-input" class="block text-base font-medium text-zinc-700 tracking-tight">
+                    welcome, enter password:
+                </label>
+                <input 
+                    type="password" 
+                    id="password-input" 
+                    autocomplete="off"
+                    placeholder="•••••••"
+                    class="w-full px-4 py-3 rounded-2xl border border-[#E6E2D8] bg-[#FAF9F6] text-center text-zinc-800 placeholder:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-amber-200 focus:border-amber-300 focus:bg-white transition text-base"
+                    required
+                >
+                <p id="password-error" class="hidden text-xs font-medium text-rose-500">
+                    wrong password, try again!
+                </p>
+                <button 
+                    type="submit" 
+                    class="w-full py-2.5 px-5 rounded-2xl bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm transition cursor-pointer"
+                >
+                    enter
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         2. STICKY TOP NAVIGATION BAR
+         ===================================================================== -->
+    <header id="sticky-nav" class="sticky top-0 z-40 bg-[#FAF9F6]/95 backdrop-blur-md border-b border-[#E6E2D8]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center justify-between py-3 gap-3">
+                <!-- Brand Title -->
+                <div class="flex items-center gap-3">
+                    <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-zinc-900 text-white font-display font-extrabold text-[11px] tracking-tight leading-none whitespace-nowrap shrink-0 select-none">
+                        USA
+                    </span>
+                    <div>
+                        <span class="font-display font-bold text-zinc-900 text-base sm:text-lg leading-none block">
+                            A World Divided
+                        </span>
+                        <span class="text-[11px] text-zinc-500 font-medium hidden sm:inline">
+                            Superpower Relations, 1943–72 • Edexcel IGCSE
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Quick Section Jump Links -->
+                <nav class="hidden md:flex items-center gap-1 bg-white border border-[#E6E2D8] rounded-xl p-1">
+                    <a href="#part-1" onclick="switchView('all')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 hover:bg-zinc-100 transition">
+                        Part 1: 18 Orgs &amp; Treaties
+                    </a>
+                    <a href="#part-2" onclick="switchView('all')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 hover:bg-zinc-100 transition">
+                        Part 2: 5 Chapters
+                    </a>
+                    <a href="#part-3" onclick="switchView('all')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-zinc-700 hover:bg-zinc-100 transition">
+                        Part 3: 1943–72 Timeline
+                    </a>
+                </nav>
+
+                <!-- Export Actions -->
+                <div class="flex items-center gap-2">
+                    <button 
+                        onclick="downloadHTML()" 
+                        title="Download standalone HTML file"
+                        class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-zinc-100 text-zinc-800 border border-[#E6E2D8] text-xs font-semibold transition shadow-2xs cursor-pointer"
+                    >
+                        <svg class="w-3.5 h-3.5 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        <span>Download HTML</span>
+                    </button>
+                    <button 
+                        onclick="window.print()" 
+                        title="Print or Save as A4 PDF"
+                        class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition shadow-2xs cursor-pointer"
+                    >
+                        <svg class="w-3.5 h-3.5 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                        </svg>
+                        <span>Download / Print PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         MAIN CONTENT WRAPPER
+         ===================================================================== -->
+    <main id="booklet-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+
+        <!-- Hero Editorial Header -->
+        <section class="bg-white border border-[#E6E2D8] rounded-3xl p-6 sm:p-10 mb-8 shadow-2xs">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold mb-4">
+                        <span>Pearson Edexcel International GCSE (9–1) History • Depth Study B6</span>
+                    </div>
+                    <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-900 tracking-tight leading-tight mb-3">
+                        A World Divided: Superpower Relations, 1943–72
+                    </h1>
+                    <p class="text-zinc-600 text-base sm:text-lg leading-relaxed">
+                        Comprehensive revision booklet covering all five textbook chapters, <span class="font-semibold text-zinc-800">18 key organisations, doctrines &amp; treaties</span>, and a complete <span class="font-semibold text-zinc-800">20-event chronological timeline</span> from the Tehran Conference to SALT 1.
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 gap-3 sm:gap-4 shrink-0">
+                    <div class="bg-[#FAF9F6] border border-[#E6E2D8] rounded-2xl p-3.5 text-center">
+                        <div class="font-display text-2xl font-extrabold text-zinc-900">18</div>
+                        <div class="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Pacts &amp; Orgs</div>
+                    </div>
+                    <div class="bg-[#FAF9F6] border border-[#E6E2D8] rounded-2xl p-3.5 text-center">
+                        <div class="font-display text-2xl font-extrabold text-zinc-900">5</div>
+                        <div class="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Chapters</div>
+                    </div>
+                    <div class="bg-[#FAF9F6] border border-[#E6E2D8] rounded-2xl p-3.5 text-center">
+                        <div class="font-display text-2xl font-extrabold text-zinc-900">20</div>
+                        <div class="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Key Events</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             3. INTERACTIVE STUDY CONTROLS (View Switcher, Live Search, Active Recall)
+             ===================================================================== -->
+        <section id="study-toolbar" class="bg-white border border-[#E6E2D8] rounded-2xl p-4 sm:p-5 mb-8 shadow-2xs space-y-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                
+                <!-- View Switcher Tabs -->
+                <div class="flex flex-wrap items-center gap-1.5" role="tablist" aria-label="Revision Booklet Views">
+                    <button id="tab-all" onclick="switchView('all')" class="view-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-zinc-900 text-white transition cursor-pointer">
+                        All Sections
+                    </button>
+                    <button id="tab-orgs" onclick="switchView('orgs')" class="view-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#FAF9F6] text-zinc-700 hover:bg-zinc-200/70 transition cursor-pointer">
+                        Organisations &amp; Treaties (18)
+                    </button>
+                    <button id="tab-chapters" onclick="switchView('chapters')" class="view-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#FAF9F6] text-zinc-700 hover:bg-zinc-200/70 transition cursor-pointer">
+                        Chapters (5)
+                    </button>
+                    <button id="tab-timeline" onclick="switchView('timeline')" class="view-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-[#FAF9F6] text-zinc-700 hover:bg-zinc-200/70 transition cursor-pointer">
+                        Timeline (1943–72)
+                    </button>
+                </div>
+
+                <!-- Live Search & Active Recall Toggle -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <!-- Live Keyword Search -->
+                    <div class="relative flex-1 sm:w-64">
+                        <svg class="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            oninput="handleSearch(this.value)"
+                            placeholder="Search dates, leaders, treaties..." 
+                            class="w-full pl-9 pr-8 py-2 rounded-xl border border-[#E6E2D8] bg-[#FAF9F6] text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:bg-white transition"
+                        >
+                        <button id="clear-search-btn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 text-xs font-bold cursor-pointer">
+                            ✕
+                        </button>
+                    </div>
+
+                    <!-- Active Recall Toggle -->
+                    <button 
+                        id="recall-toggle-btn" 
+                        onclick="toggleActiveRecall()" 
+                        aria-pressed="false"
+                        class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-[#E6E2D8] bg-[#FAF9F6] hover:bg-amber-50 text-zinc-800 text-xs sm:text-sm font-semibold transition cursor-pointer shrink-0"
+                    >
+                        <span id="recall-dot" class="w-2.5 h-2.5 rounded-full bg-zinc-400 transition-colors"></span>
+                        <span>Active Recall Mode</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Recall Helper Banner -->
+            <div id="recall-banner" class="hidden bg-amber-50 border border-amber-200 rounded-xl px-4 py-2.5 text-xs text-amber-900 flex items-center justify-between gap-2">
+                <span><strong>Active Recall Enabled:</strong> Key dates, leaders, treaties, and figures are masked. Hover or tap any dark bar to reveal and test your memory!</span>
+                <button onclick="revealAllMasks()" class="underline font-semibold hover:text-amber-950 shrink-0 cursor-pointer">Reveal All Temporarily</button>
+            </div>
+        </section>
+
+        <!-- Search Status Banner -->
+        <div id="search-status" class="hidden mb-6 px-4 py-2.5 rounded-xl bg-yellow-50 border border-yellow-200 text-xs sm:text-sm text-zinc-800 flex items-center justify-between">
+            <span id="search-status-text">Showing matches...</span>
+            <button onclick="clearSearch()" class="font-semibold underline text-zinc-900 cursor-pointer">Reset Filter</button>
+        </div>
+
+        <!-- =====================================================================
+             PART 1: ORGANISATIONS, ALLIANCES, DOCTRINES & TREATIES (18 CARDS)
+             ===================================================================== -->
+        <section id="part-1" class="section-container mb-14" data-section="orgs">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-zinc-400">Part 1 • Reference Directory</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-zinc-900 mt-0.5">
+                        Organisations, Alliances, Doctrines &amp; Treaties (18)
+                    </h2>
+                </div>
+
+                <!-- Bloc / Category Filter Pills -->
+                <div class="flex flex-wrap items-center gap-1.5 no-print">
+                    <button onclick="filterOrgs('all')" class="org-filter-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-white cursor-pointer" data-filter="all">All (18)</button>
+                    <button onclick="filterOrgs('Western / US')" class="org-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#E6E2D8] text-blue-800 hover:bg-blue-50 cursor-pointer" data-filter="Western / US">US / Western (5)</button>
+                    <button onclick="filterOrgs('Soviet / Eastern')" class="org-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#E6E2D8] text-red-800 hover:bg-red-50 cursor-pointer" data-filter="Soviet / Eastern">USSR / Eastern (4)</button>
+                    <button onclick="filterOrgs('Diplomacy & Treaties')" class="org-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-[#E6E2D8] text-emerald-800 hover:bg-emerald-50 cursor-pointer" data-filter="Diplomacy & Treaties">Treaties &amp; Diplomacy (9)</button>
+                </div>
+            </div>
+
+            <div id="orgs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Populated dynamically via structured data below -->
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             PART 2: COMPLETE CHAPTER-BY-CHAPTER REVISION SUMMARIES (5 CHAPTERS)
+             ===================================================================== -->
+        <section id="part-2" class="section-container mb-14 page-break-before" data-section="chapters">
+            <div class="mb-6">
+                <span class="text-xs font-bold uppercase tracking-widest text-zinc-400">Part 2 • Core Syllabus Breakdown</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-zinc-900 mt-0.5">
+                    Chapter-by-Chapter Revision Summaries (Chapters 1–5)
+                </h2>
+            </div>
+
+            <div id="chapters-list" class="space-y-6">
+                <!-- Populated dynamically via structured data below -->
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             PART 3: FULL 20-EVENT CHRONOLOGICAL TIMELINE (1943–1972)
+             ===================================================================== -->
+        <section id="part-3" class="section-container mb-12 page-break-before" data-section="timeline">
+            <div class="mb-6">
+                <span class="text-xs font-bold uppercase tracking-widest text-zinc-400">Part 3 • Chronology Masterlist</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold text-zinc-900 mt-0.5">
+                    Complete Chronological Timeline (1943–1972)
+                </h2>
+                <p class="text-sm text-zinc-600 mt-1">
+                    All 20 milestone conferences, crises, doctrines, and treaties from the Tehran Conference to SALT 1.
+                </p>
+            </div>
+
+            <div class="bg-white border border-[#E6E2D8] rounded-3xl p-5 sm:p-8 shadow-2xs">
+                <div id="timeline-container" class="relative border-l-2 border-zinc-200 ml-3 sm:ml-4 space-y-6">
+                    <!-- Populated dynamically via structured data below -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-[#E6E2D8] pt-6 pb-10 text-center text-xs text-zinc-500">
+            <p class="font-semibold text-zinc-700">A World Divided: Superpower Relations, 1943–72 — Revision Booklet</p>
+            <p class="mt-1">Aligned with Pearson Edexcel International GCSE (9–1) History • Use Active Recall Mode to test key dates, names &amp; statistics.</p>
+        </footer>
+
+    </main>
+
+    <!-- =====================================================================
+         JAVASCRIPT DATA & APPLICATION LOGIC
+         ===================================================================== -->
+    <script>
+        // ---------------------------------------------------------------------
+        // 1. PASSWORD GATE LOGIC
+        // ---------------------------------------------------------------------
+        const passwordGate = document.getElementById('password-gate');
+        const passwordForm = document.getElementById('password-form');
+        const passwordInput = document.getElementById('password-input');
+        const passwordError = document.getElementById('password-error');
+
+        passwordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const val = passwordInput.value.trim();
+            if (val === 'leeknow') {
+                passwordError.classList.add('hidden');
+                passwordGate.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    passwordGate.style.display = 'none';
+                }, 300);
+            } else {
+                passwordError.classList.remove('hidden');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        });
+
+        // ---------------------------------------------------------------------
+        // 2. DATA: PART 1 — 18 ORGANISATIONS, ALLIANCES, DOCTRINES & TREATIES
+        // ---------------------------------------------------------------------
+        const organisationsData = [
+            {
+                id: 1,
+                title: "The Grand Alliance",
+                years: "1941–1945",
+                bloc: "Diplomacy & Treaties",
+                leaders: "Winston Churchill (UK), Franklin D. Roosevelt (USA), Joseph Stalin (USSR)",
+                impact: "Wartime coalition formed after Hitler invaded the USSR in June 1941. United solely by the shared goal of defeating Nazi Germany and Japan. Met at Tehran (1943), Yalta (Feb 1945), and Potsdam (July 1945), but collapsed once Germany surrendered due to deep ideological distrust."
+            },
+            {
+                id: 2,
+                title: "United Nations (UN)",
+                years: "Est. June–October 1945",
+                bloc: "Diplomacy & Treaties",
+                leaders: "Roosevelt, Churchill, Stalin (agreed at Yalta; Charter signed in San Francisco)",
+                impact: "Replaced the failed League of Nations to maintain international peace and collective security. Created the General Assembly and a 5-member permanent Security Council (USA, USSR, UK, France, China) with veto power—which was frequently used by the USSR during the Cold War."
+            },
+            {
+                id: 3,
+                title: "Allied Control Commission (ACC)",
+                years: "1945–1948",
+                bloc: "Diplomacy & Treaties",
+                leaders: "USA, USSR, Britain, and France (Military Governors in Berlin)",
+                impact: "Joint governing body established at Yalta and Potsdam to administer the four occupation zones of defeated Germany and Berlin. Paralysed by disagreements over German economic recovery and reparations; collapsed in March 1948 when the Soviet representative walked out."
+            },
+            {
+                id: 4,
+                title: "Truman Doctrine",
+                years: "12 March 1947",
+                bloc: "Western / US",
+                leaders: "President Harry S. Truman (USA)",
+                impact: "Committed the USA to the policy of ‘containment’—providing economic, financial, and military aid to free peoples resisting armed minorities or outside communist pressure. Triggered by Britain announcing it could no longer fund the Greek government against communist insurgents; $400 million sent to Greece and Turkey."
+            },
+            {
+                id: 5,
+                title: "Marshall Plan (European Recovery Program)",
+                years: "June 1947 – 1951",
+                bloc: "Western / US",
+                leaders: "US Secretary of State George Marshall & President Harry Truman",
+                impact: "Provided $13 billion ($13.3bn) in US economic aid, machinery, and goods to rebuild war-torn European economies and prevent poverty-driven communism. Stalin banned Eastern European states from accepting funds, calling it ‘dollar imperialism’, cementing Europe’s economic division."
+            },
+            {
+                id: 6,
+                title: "Cominform (Communist Information Bureau)",
+                years: "September 1947",
+                bloc: "Soviet / Eastern",
+                leaders: "Joseph Stalin & Andrei Zhdanov (USSR)",
+                impact: "Created to coordinate and control communist parties across Europe, enforcing ideological conformity and obedience to Moscow. Used to reject Marshall Aid across the Eastern Bloc and expelled Marshal Tito’s Yugoslavia in 1948 for refusing Soviet domination."
+            },
+            {
+                id: 7,
+                title: "Comecon (Council for Mutual Economic Assistance)",
+                years: "January 1949",
+                bloc: "Soviet / Eastern",
+                leaders: "Joseph Stalin (USSR)",
+                impact: "Stalin’s economic alternative to the Marshall Plan for the USSR and Eastern European satellite states (Bulgaria, Czechoslovakia, Hungary, Poland, Romania, later GDR). Coordinated trade and Five-Year Plans, binding satellite economies to serve Soviet industrial needs."
+            },
+            {
+                id: 8,
+                title: "NATO (North Atlantic Treaty Organization)",
+                years: "4 April 1949",
+                bloc: "Western / US",
+                leaders: "USA, UK, France, Canada & 8 Western European allies",
+                impact: "Defensive military alliance formed in response to the Czech Coup (1948) and Berlin Blockade (1948–49). Article 5 stated an attack on one member was an attack on all. Secured a permanent US military presence in Europe; West Germany joined in May 1955."
+            },
+            {
+                id: 9,
+                title: "SEATO (Southeast Asia Treaty Organization)",
+                years: "September 1954",
+                bloc: "Western / US",
+                leaders: "US President Dwight D. Eisenhower & Secretary of State John Foster Dulles",
+                impact: "Anti-communist collective defence pact signed in Manila (USA, UK, France, Australia, NZ, Pakistan, Philippines, Thailand) to contain communism in Southeast Asia following the French defeat in Indochina and the Korean War."
+            },
+            {
+                id: 10,
+                title: "Warsaw Pact",
+                years: "14 May 1955",
+                bloc: "Soviet / Eastern",
+                leaders: "Nikita Khrushchev (USSR) & 7 Eastern Bloc satellite states",
+                impact: "Soviet-led collective defence military alliance created immediately after West Germany joined NATO. Unified Eastern Bloc armed forces under Soviet command and was later used to justify military interventions inside member states (Hungary 1956, Czechoslovakia 1968)."
+            },
+            {
+                id: 11,
+                title: "ExComm (Executive Committee of the NSC)",
+                years: "October 1962",
+                bloc: "Western / US",
+                leaders: "President John F. Kennedy, Robert Kennedy, Robert McNamara, Dean Rusk",
+                impact: "Secret advisory group of 12 key US military, diplomatic, and intelligence officials convened by JFK during the 13-day Cuban Missile Crisis. Evaluated options (airstrikes, invasion, blockade) and recommended the naval ‘quarantine’ of Cuba that averted nuclear war."
+            },
+            {
+                id: 12,
+                title: "The Hotline & Limited Test Ban Treaty (LTBT)",
+                years: "June & August 1963",
+                bloc: "Diplomacy & Treaties",
+                leaders: "John F. Kennedy (USA), Nikita Khrushchev (USSR), Harold Macmillan (UK)",
+                impact: "Direct aftermath of the Cuban Missile Crisis. The Washington–Moscow Hotline (June 1963) established instant teleprinter communication to prevent accidental war. The LTBT (5 August 1963) banned nuclear weapon tests in the atmosphere, outer space, and underwater."
+            },
+            {
+                id: 13,
+                title: "Outer Space Treaty",
+                years: "27 January 1967",
+                bloc: "Diplomacy & Treaties",
+                leaders: "USA (Lyndon B. Johnson), USSR (Alexei Kosygin / Leonid Brezhnev), UK",
+                impact: "Forbade the placing of nuclear weapons or any weapons of mass destruction in Earth orbit, on the Moon, or on any other celestial body. Declared outer space free for peaceful exploration by all nations and barred national sovereignty claims over the Moon."
+            },
+            {
+                id: 14,
+                title: "Nuclear Non-Proliferation Treaty (NPT)",
+                years: "1 July 1968",
+                bloc: "Diplomacy & Treaties",
+                leaders: "USA (Lyndon B. Johnson), USSR (Leonid Brezhnev), UK",
+                impact: "Landmark arms control agreement preventing the spread of nuclear weapons technology. Nuclear-weapon states pledged not to transfer nuclear weapons to non-nuclear states and to pursue disarmament, while non-nuclear states agreed never to acquire them."
+            },
+            {
+                id: 15,
+                title: "Brezhnev Doctrine",
+                years: "November 1968",
+                bloc: "Soviet / Eastern",
+                leaders: "Leonid Brezhnev (General Secretary of the USSR)",
+                impact: "Declared after the August 1968 Warsaw Pact invasion of Czechoslovakia. Stated that if any socialist country attempted to turn towards capitalism or leave the Warsaw Pact, it was the duty of all socialist countries to intervene militarily—ending the Prague Spring."
+            },
+            {
+                id: 16,
+                title: "Ostpolitik (‘Eastern Policy’)",
+                years: "1969–1972",
+                bloc: "Diplomacy & Treaties",
+                leaders: "Willy Brandt (West German Chancellor) & Erich Honecker / Walter Ulbricht (GDR)",
+                impact: "Brandt’s policy of normalising relations between West Germany (FRG) and Eastern Europe. Led to the Moscow and Warsaw Treaties (1970), the Four-Power Berlin Agreement (1971), and the Basic Treaty (1972), mutually recognising East and West Germany and reducing European tension."
+            },
+            {
+                id: 17,
+                title: "Shanghai Communiqué",
+                years: "27 February 1972",
+                bloc: "Diplomacy & Treaties",
+                leaders: "US President Richard Nixon & Chinese Premier Zhou Enlai (Mao Zedong)",
+                impact: "Issued at the conclusion of Nixon’s historic visit to Beijing (‘Ping-Pong Diplomacy’). Ended 23 years of US–China hostility, acknowledged ‘One China’, and pressured the USSR into negotiating arms deals with the USA out of fear of a Sino-American alliance."
+            },
+            {
+                id: 18,
+                title: "SALT 1 (Strategic Arms Limitation Talks)",
+                years: "26 May 1972",
+                bloc: "Diplomacy & Treaties",
+                leaders: "US President Richard Nixon & Soviet Leader Leonid Brezhnev",
+                impact: "Signed in Moscow as the pinnacle of Détente. Included the ABM Treaty (limiting anti-ballistic missile sites to 2 per country) and the Interim Agreement freezing ICBMs and SLBMs for 5 years. Proved superpowers could limit strategic nuclear arsenals."
+            }
+        ];
+
+        // ---------------------------------------------------------------------
+        // 3. DATA: PART 2 — ALL 5 CHAPTERS FROM PEARSON EDEXCEL IGCSE TEXTBOOK
+        // ---------------------------------------------------------------------
+        const chaptersData = [
+            {
+                number: "Chapter 1",
+                period: "1943–1945",
+                title: "Reasons for the Cold War",
+                overview: "How deep ideological differences between capitalist democracy and Soviet communism were temporarily set aside in the Grand Alliance, only to resurface at Tehran, Yalta, and Potsdam as Nazi Germany collapsed.",
+                sections: [
+                    {
+                        heading: "1. Ideological Differences: Capitalism vs. Communism",
+                        points: [
+                            "<strong>USA &amp; Britain (Capitalist Democracy):</strong> Multi-party free elections, private ownership of property and industry, free trade, individual civil liberties, and religious freedom.",
+                            "<strong>USSR (One-Party Communist State):</strong> Single-party dictatorship under Stalin, state ownership of land and industry, collective farms, strict censorship, secret police (NKVD), and belief in world revolution.",
+                            "<strong>Historical Mistrust:</strong> Western intervention against the Bolsheviks in the Russian Civil War (1918–21), Stalin’s Great Purges, the Nazi–Soviet Pact (August 1939), and Stalin’s anger over the delayed Allied Second Front until D-Day (June 1944)."
+                        ]
+                    },
+                    {
+                        heading: "2. The Three Wartime Conferences (1943–1945)",
+                        points: [
+                            "<strong>Tehran Conference (Nov–Dec 1943):</strong> First meeting of the ‘Big Three’ (Roosevelt, Churchill, Stalin). USA and Britain agreed to open a Second Front in France in May/June 1944; USSR agreed to join the war against Japan once Germany fell; border changes for Poland agreed in principle.",
+                            "<strong>Yalta Conference (February 1945):</strong> Germany and Berlin to be divided into 4 occupation zones (USA, USSR, UK, France); Nazi war criminals to be hunted down; United Nations to be created; liberated European states to hold ‘free elections’ (Declaration on Liberated Europe); fierce dispute over Poland’s borders and communist Lublin government vs. London Poles.",
+                            "<strong>Potsdam Conference (July–August 1945):</strong> Major changes: Roosevelt died (replaced by hardliner Harry Truman), Churchill lost the UK election mid-conference (replaced by Clement Attlee), and the USA successfully tested the first atomic bomb (Trinity test, 16 July 1945). Disagreements erupted over German reparations (Stalin wanted massive compensation; Truman refused to repeat Versailles) and Soviet control of Eastern Europe."
+                        ]
+                    },
+                    {
+                        heading: "3. The Atomic Bomb &amp; Deteriorating Relations",
+                        points: [
+                            "Truman deliberately hinted at a ‘new weapon of unusual destructive force’ to intimidate Stalin at Potsdam, before dropping atomic bombs on Hiroshima (6 August 1945) and Nagasaki (9 August 1945).",
+                            "Rather than intimidating Stalin, the US nuclear monopoly convinced him that the USSR needed a defensive buffer zone in Eastern Europe and its own atomic bomb (achieved in August 1949)."
+                        ]
+                    }
+                ]
+            },
+            {
+                number: "Chapter 2",
+                period: "1945–1949",
+                title: "Early Developments in the Cold War",
+                overview: "The creation of the Soviet satellite empire (‘Iron Curtain’), the Truman Doctrine and Marshall Plan, the Berlin Blockade and Airlift, and the formal division of Germany and Europe into rival military blocs.",
+                sections: [
+                    {
+                        heading: "1. Soviet Expansion &amp; The ‘Iron Curtain’ (1945–1948)",
+                        points: [
+                            "Stalin used ‘salami tactics’ (rigged elections, intimidation, coalition infiltration) to establish pro-Soviet communist regimes in Poland, Romania, Bulgaria, Hungary, and East Germany.",
+                            "<strong>February 1946 Long Telegram &amp; Novikov Telegram:</strong> US diplomat George Kennan warned that the USSR sought to destroy capitalism and urged ‘containment’; Soviet ambassador Novikov warned the USA sought world supremacy.",
+                            "<strong>March 1946 Iron Curtain Speech:</strong> Winston Churchill in Fulton, Missouri declared an ‘iron curtain has descended across the Continent’ from Stettin in the Baltic to Trieste in the Adriatic.",
+                            "<strong>February 1948 Czechoslovakian Coup:</strong> Communists seized full power in Czechoslovakia and Foreign Minister Jan Masaryk died suspiciously, shocking the West and ensuring US Congress passed the Marshall Plan."
+                        ]
+                    },
+                    {
+                        heading: "2. Containment: Truman Doctrine, Marshall Plan &amp; Soviet Responses",
+                        points: [
+                            "<strong>Truman Doctrine (12 March 1947):</strong> Committed the USA to containing communism globally, starting with $400 million in aid to Greece and Turkey.",
+                            "<strong>Marshall Plan (June 1947):</strong> $13 billion recovery package for Europe. Stalin forbade satellite states from participating and retaliated with <strong>Cominform (Sept 1947)</strong> and <strong>Comecon (Jan 1949)</strong>."
+                        ]
+                    },
+                    {
+                        heading: "3. The Berlin Blockade &amp; Airlift (June 1948 – May 1949)",
+                        points: [
+                            "<strong>Causes:</strong> Britain and USA merged their German zones into ‘Bizonia’ (1947), later joined by France (‘Trizonia’), and introduced a new currency, the <strong>Deutschmark</strong> (June 1948), to revive the West German economy. Stalin saw this as a threat to Soviet-controlled East Germany.",
+                            "<strong>The Blockade (24 June 1948):</strong> Stalin cut off all road, rail, and canal links between West Germany and West Berlin (located 100 miles inside the Soviet zone), hoping to starve the 2 million West Berliners into surrender.",
+                            "<strong>Operation Vittles (Berlin Airlift):</strong> Rather than risk war by forcing convoys through, the USA and Britain flew in food, coal, and medicine for 318 days—277,500 flights delivering 2.3 million tons of supplies (a plane landing every 90 seconds at peak). Stalin lifted the blockade on <strong>12 May 1949</strong>."
+                        ]
+                    },
+                    {
+                        heading: "4. Two Germanies &amp; Military Alliances (1949)",
+                        points: [
+                            "<strong>Division of Germany:</strong> West Germany became the <strong>Federal Republic of Germany (FRG)</strong> in May 1949; East Germany became the communist <strong>German Democratic Republic (GDR)</strong> in October 1949.",
+                            "<strong>NATO formed (April 1949):</strong> Western defensive alliance against Soviet aggression."
+                        ]
+                    }
+                ]
+            },
+            {
+                number: "Chapter 3",
+                period: "1950–1959",
+                title: "The Cold War in the 1950s",
+                overview: "Globalisation of the Cold War in Asia (Korea & SEATO), the nuclear arms race, Khrushchev’s ‘Peaceful Coexistence’ and ‘Secret Speech’, and the brutal suppression of the 1956 Hungarian Uprising.",
+                sections: [
+                    {
+                        heading: "1. The Korean War (1950–1953) &amp; SEATO",
+                        points: [
+                            "Following Mao Zedong’s communist victory in China (October 1949), communist North Korea (Kim Il-sung) invaded South Korea (Syngman Rhee) in June 1950.",
+                            "Because the USSR was boycotting the UN Security Council, the USA secured UN backing for a coalition force led by General Douglas MacArthur, pushing North Koreans to the Yalu River before Chinese ‘volunteers’ intervened. Ended in a stalemate at the 38th Parallel (July 1953 armistice); followed by <strong>SEATO (1954)</strong>."
+                        ]
+                    },
+                    {
+                        heading: "2. The Arms Race &amp; New Leadership (1953–1955)",
+                        points: [
+                            "<strong>Nuclear Escalation:</strong> USSR tested its first atomic bomb (1949); USA tested the Hydrogen Bomb (1952), USSR followed (1953); USSR launched <strong>Sputnik 1</strong> (October 1957), proving ICBM capability and creating a ‘missile gap’ panic in the USA.",
+                            "<strong>New Leaders:</strong> Dwight D. Eisenhower became US President (1953); Stalin died in March 1953 and was succeeded by <strong>Nikita Khrushchev</strong>, who advocated <em>‘Peaceful Coexistence’</em> and denounced Stalin’s crimes in his February 1956 <em>‘Secret Speech’</em> (De-Stalinisation).",
+                            "<strong>Warsaw Pact (May 1955):</strong> Created by Khrushchev in direct response to West Germany joining NATO."
+                        ]
+                    },
+                    {
+                        heading: "3. The Hungarian Uprising (October–November 1956)",
+                        points: [
+                            "<strong>Causes:</strong> Hatred of brutal Stalinist leader Mátyás Rákosi, secret police (AVO), low living standards, and hopes sparked by Khrushchev’s Secret Speech and Polish reforms.",
+                            "<strong>Events:</strong> Mass student protests in Budapest (23 October 1956) toppled Stalin’s statue. Reformist <strong>Imre Nagy</strong> became Prime Minister, promising free elections, multiparty democracy, and—crucially on <strong>1 November 1956</strong>—withdrawal from the Warsaw Pact.",
+                            "<strong>Soviet Invasion (4 November 1956):</strong> Khrushchev could not allow the Warsaw Pact to fracture. 200,000 Soviet troops and 1,000 tanks crushed the uprising; ~20,000 Hungarians were killed, 200,000 fled to Austria, and Nagy was executed in 1958. The USA offered sympathy (Radio Free Europe) but did not intervene militarily due to the Suez Crisis and fear of nuclear war."
+                        ]
+                    }
+                ]
+            },
+            {
+                number: "Chapter 4",
+                period: "1958–1969",
+                title: "Three Crises: Berlin, Cuba and Czechoslovakia",
+                overview: "The three most dangerous flashpoints of the Cold War: the construction of the Berlin Wall (1961), the 13-day Cuban Missile Crisis (1962), and the Prague Spring & Brezhnev Doctrine (1968).",
+                sections: [
+                    {
+                        heading: "1. The Berlin Crisis &amp; The Berlin Wall (1958–1961)",
+                        points: [
+                            "<strong>The Refugee ‘Brain Drain’:</strong> Between 1949 and 1961, ~2.7 million East Germans (many skilled doctors, engineers, teachers) fled to the prosperous West via West Berlin, humiliating Walter Ulbricht’s GDR.",
+                            "<strong>Diplomacy Fails:</strong> Khrushchev issued his 1958 Berlin Ultimatum demanding Western troops leave within 6 months. Summits at Geneva (1959), Camp David (1959), Paris (May 1960—wrecked by the <strong>U-2 spy plane incident</strong> involving Gary Powers), and Vienna (June 1961—where Khrushchev bullied young JFK) all failed.",
+                            "<strong>Construction of the Wall (13 August 1961):</strong> Overnight, East German troops erected barbed wire and later a fortified concrete wall dividing Berlin for 28 years. Stopped the refugee crisis; JFK visited in June 1963 delivering his famous <em>‘Ich bin ein Berliner’</em> speech."
+                        ]
+                    },
+                    {
+                        heading: "2. The Cuban Missile Crisis (October 1962)",
+                        points: [
+                            "<strong>Background:</strong> Fidel Castro overthrew US-backed dictator Batista (January 1959) and nationalised US businesses. Eisenhower imposed trade embargoes, pushing Castro toward Khrushchev. JFK’s CIA-backed <strong>Bay of Pigs invasion (April 1961)</strong> failed humiliatingly.",
+                            "<strong>Why Khrushchev Placed Missiles in Cuba:</strong> To defend Cuba from US invasion, close the strategic missile gap (US Jupiter missiles were in Turkey), and prove strength to Soviet hardliners.",
+                            "<strong>The 13 Days (16–28 October 1962):</strong> On 14 October, a US U-2 spy plane photographed Soviet MRBM launch sites in Cuba. JFK and <strong>ExComm</strong> imposed a naval ‘quarantine’ (blockade) on 22 October. Soviet ships turned back at the quarantine line on 24 October.",
+                            "<strong>Resolution &amp; Consequences:</strong> Khrushchev sent two letters (26 &amp; 27 Oct). JFK accepted the first—pledging not to invade Cuba if missiles were removed—and secretly agreed via Robert Kennedy to remove US Jupiter missiles from Turkey. Khrushchev announced withdrawal on <strong>28 October 1962</strong>. Led directly to the Hotline and LTBT (1963)."
+                        ]
+                    },
+                    {
+                        heading: "3. Czechoslovakia, the Prague Spring &amp; Brezhnev Doctrine (1968)",
+                        points: [
+                            "<strong>The Prague Spring (Jan–Aug 1968):</strong> New reformist leader <strong>Alexander Dubček</strong> introduced <em>‘Socialism with a Human Face’</em>: relaxing press censorship, allowing criticism of the government, decentralising the economy, and permitting travel abroad—while promising to remain loyal to the Warsaw Pact.",
+                            "<strong>Soviet Invasion (20–21 August 1968):</strong> Brezhnev feared reforms would spread across Eastern Europe. 500,000 Warsaw Pact troops invaded Czechoslovakia; Dubček was arrested, forced to sign the Moscow Protocol, and replaced by hardliner Gustáv Husák (April 1969). Czechs resisted passively (e.g. Jan Palach’s self-immolation).",
+                            "<strong>Brezhnev Doctrine (November 1968):</strong> Asserted the USSR’s right to invade any Warsaw Pact state threatening socialist solidarity."
+                        ]
+                    }
+                ]
+            },
+            {
+                number: "Chapter 5",
+                period: "1963–1972",
+                title: "The Thaw and Moves Towards Détente",
+                overview: "How the near-catastrophe of Cuba, crippling military spending, the Sino-Soviet split, and Willy Brandt’s Ostpolitik culminated in the landmark Nixon–Brezhnev Moscow Summit and SALT 1 in 1972.",
+                sections: [
+                    {
+                        heading: "1. Early Steps After Cuba (1963–1968)",
+                        points: [
+                            "<strong>The Washington–Moscow Hotline (June 1963):</strong> Direct teleprinter link between the White House and Kremlin.",
+                            "<strong>Limited Test Ban Treaty (August 1963):</strong> Banned above-ground, space, and underwater nuclear tests (signed by USA, USSR, UK).",
+                            "<strong>Outer Space Treaty (January 1967) &amp; Nuclear Non-Proliferation Treaty (July 1968):</strong> Prevented weaponisation of space and halted the spread of nuclear weapons to non-nuclear states."
+                        ]
+                    },
+                    {
+                        heading: "2. Why Both Superpowers Wanted Détente by 1969",
+                        points: [
+                            "<strong>USA Motives:</strong> Bogged down in the costly, unwinnable <strong>Vietnam War</strong>, facing severe domestic anti-war protests, inflation, and social unrest. President Richard Nixon and National Security Advisor Henry Kissinger sought ‘Peace with Honour’ and Soviet help pressuring North Vietnam.",
+                            "<strong>USSR Motives:</strong> Stagnating consumer economy caused by massive military spending (~20% of GDP), desire for Western technology and grain imports, and growing fear of border clashes with Communist China (<strong>Sino-Soviet Split</strong>, 1969 Ussuri River clashes)."
+                        ]
+                    },
+                    {
+                        heading: "3. Ostpolitik &amp; Triangular Diplomacy (1969–1972)",
+                        points: [
+                            "<strong>Willy Brandt’s Ostpolitik:</strong> West German Chancellor Brandt normalised ties with the East through the Moscow Treaty (1970), Warsaw Treaty (1970), Four-Power Berlin Agreement (1971), and the <strong>Basic Treaty (1972)</strong>.",
+                            "<strong>Nixon Visits China (February 1972):</strong> Following ‘Ping-Pong Diplomacy’, Nixon met Mao Zedong and Zhou Enlai in Beijing, signing the <strong>Shanghai Communiqué</strong>. Fear of a US–China partnership pushed Brezhnev to accelerate arms talks with Nixon."
+                        ]
+                    },
+                    {
+                        heading: "4. The Moscow Summit &amp; SALT 1 (May 1972)",
+                        points: [
+                            "In May 1972, Richard Nixon became the first US President to visit Moscow.",
+                            "<strong>SALT 1 (26 May 1972):</strong> Composed of the <strong>ABM Treaty</strong> (limiting Anti-Ballistic Missile systems to two sites each, preserving Mutually Assured Destruction deterrence) and the <strong>Interim Agreement</strong> (freezing offensive ICBM and SLBM launchers for 5 years). Marked the high point of Cold War Détente."
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // ---------------------------------------------------------------------
+        // 4. DATA: PART 3 — 20-EVENT CHRONOLOGICAL TIMELINE (NOV 1943 – MAY 1972)
+        // ---------------------------------------------------------------------
+        const timelineData = [
+            {
+                date: "28 Nov – 1 Dec 1943",
+                title: "Tehran Conference",
+                category: "Diplomacy",
+                summary: "First meeting of the ‘Big Three’ (Roosevelt, Churchill, Stalin). Britain and USA commit to opening a Second Front in France in 1944; USSR agrees to enter the war against Japan after Germany’s defeat."
+            },
+            {
+                date: "4–11 February 1945",
+                title: "Yalta Conference",
+                category: "Diplomacy",
+                summary: "Big Three agree to divide Germany and Berlin into four occupation zones, establish the United Nations, hold free elections in liberated Europe, and adjust Poland’s borders."
+            },
+            {
+                date: "17 July – 2 Aug 1945",
+                title: "Potsdam Conference",
+                category: "Diplomacy",
+                summary: "Truman, Attlee, and Stalin clash over German reparations and Eastern Europe. Truman reveals the USA’s successful atomic bomb test (16 July), deepening mutual suspicion."
+            },
+            {
+                date: "6 & 9 August 1945",
+                title: "Atomic Bombings of Hiroshima & Nagasaki",
+                category: "Crisis",
+                summary: "USA drops atomic bombs on Japan, ending WWII but triggering a superpower nuclear arms race as Stalin orders an accelerated Soviet atomic programme."
+            },
+            {
+                date: "5 March 1946",
+                title: "Churchill’s ‘Iron Curtain’ Speech",
+                category: "Diplomacy",
+                summary: "Speaking in Fulton, Missouri, Winston Churchill warns that an ‘iron curtain’ has divided Europe between Western democracies and Soviet-controlled satellite states."
+            },
+            {
+                date: "12 March 1947",
+                title: "Truman Doctrine Announced",
+                category: "Western",
+                summary: "President Truman pledges US support for free peoples resisting communist subjugation, initiating the policy of containment with $400 million in aid to Greece and Turkey."
+            },
+            {
+                date: "June & Sept 1947",
+                title: "Marshall Plan & Cominform",
+                category: "Western",
+                summary: "US Secretary of State George Marshall unveils a $13 billion European recovery plan; Stalin rejects it as ‘dollar imperialism’ and forms Cominform to control European communist parties."
+            },
+            {
+                date: "24 June 1948 – 12 May 1949",
+                title: "Berlin Blockade & Allied Airlift",
+                category: "Crisis",
+                summary: "In response to the Western Deutschmark currency reform, Stalin blockades West Berlin. USA and Britain sustain 2 million Berliners via a 318-day airlift until Stalin backs down."
+            },
+            {
+                date: "4 April 1949",
+                title: "Formation of NATO",
+                category: "Western",
+                summary: "USA, Canada, and 10 Western European nations sign the North Atlantic Treaty, pledging mutual military defence against Soviet aggression."
+            },
+            {
+                date: "May & October 1949",
+                title: "Division of Germany (FRG & GDR)",
+                category: "Crisis",
+                summary: "Western zones unite as the Federal Republic of Germany (West Germany) in May; the Soviet zone becomes the communist German Democratic Republic (East Germany) in October."
+            },
+            {
+                date: "June 1950 – July 1953",
+                title: "The Korean War",
+                category: "Crisis",
+                summary: "Communist North Korea invades South Korea; a US-led UN force intervenes and fights North Korean and Chinese troops to a stalemate along the 38th Parallel."
+            },
+            {
+                date: "5 March 1953",
+                title: "Death of Joseph Stalin",
+                category: "Soviet",
+                summary: "Stalin dies after nearly 30 years in power, leading to the rise of Nikita Khrushchev, ‘De-Stalinisation’ (1956 Secret Speech), and calls for ‘Peaceful Coexistence’."
+            },
+            {
+                date: "14 May 1955",
+                title: "Creation of the Warsaw Pact",
+                category: "Soviet",
+                summary: "Triggered by West Germany joining NATO, the USSR and seven Eastern European satellite states form a unified Soviet-commanded military alliance."
+            },
+            {
+                date: "23 Oct – 10 Nov 1956",
+                title: "The Hungarian Uprising",
+                category: "Crisis",
+                summary: "Hungarian PM Imre Nagy announces democratic reforms and withdrawal from the Warsaw Pact; Khrushchev sends 200,000 Soviet troops and tanks to crush the revolt."
+            },
+            {
+                date: "13 August 1961",
+                title: "Construction of the Berlin Wall",
+                category: "Crisis",
+                summary: "To halt the mass exodus of 2.7 million East Germans to the West, GDR troops seal off West Berlin overnight, erecting a concrete wall that divides the city until 1989."
+            },
+            {
+                date: "16–28 October 1962",
+                title: "Cuban Missile Crisis",
+                category: "Crisis",
+                summary: "Discovery of Soviet nuclear missiles in Cuba brings the world to the brink of nuclear war during 13 tense days. Resolved via JFK’s naval quarantine, a public non-invasion pledge, and a secret deal to remove US missiles from Turkey."
+            },
+            {
+                date: "June & August 1963",
+                title: "The Hotline & Limited Test Ban Treaty (LTBT)",
+                category: "Diplomacy",
+                summary: "USA and USSR install a direct Washington–Moscow teleprinter Hotline and sign the LTBT banning atmospheric, underwater, and outer space nuclear tests."
+            },
+            {
+                date: "20–21 Aug & Nov 1968",
+                title: "Prague Spring Invasion & Brezhnev Doctrine",
+                category: "Soviet",
+                summary: "500,000 Warsaw Pact troops invade Czechoslovakia to crush Alexander Dubček’s ‘Socialism with a Human Face’; Leonid Brezhnev proclaims the right to intervene in any socialist state."
+            },
+            {
+                date: "1969–1972 (Feb 1972)",
+                title: "Ostpolitik & Nixon’s Visit to China",
+                category: "Diplomacy",
+                summary: "West German Chancellor Willy Brandt normalises relations with East Germany (Basic Treaty, 1972), while President Nixon visits Beijing and signs the Shanghai Communiqué."
+            },
+            {
+                date: "26 May 1972",
+                title: "Moscow Summit & SALT 1 Signed",
+                category: "Diplomacy",
+                summary: "Richard Nixon and Leonid Brezhnev sign the Strategic Arms Limitation Talks (SALT 1) agreements—the ABM Treaty and Interim ICBM/SLBM freeze—marking the peak of Détente."
+            }
+        ];
+
+        // ---------------------------------------------------------------------
+        // 5. ACTIVE RECALL AUTO-MASKING HELPER
+        // Wraps key years, dates, dollar/troop figures, and iconic leaders
+        // ---------------------------------------------------------------------
+        const keyTermsRegex = /\b(194[0-9]|195[0-9]|196[0-9]|197[0-9]|1989|1918–21|Roosevelt|Churchill|Stalin|Truman|Attlee|George Marshall|Kennan|Novikov|Jan Masaryk|Eisenhower|Khrushchev|Dulles|Imre Nagy|Rákosi|Ulbricht|John F\. Kennedy|JFK|Robert Kennedy|McNamara|Castro|Gary Powers|Lyndon B\. Johnson|Brezhnev|Dubček|Gustáv Husák|Willy Brandt|Nixon|Kissinger|Mao Zedong|Zhou Enlai|\$400 million|\$13 billion|\$13\.3bn|318 days|277,500 flights|2\.3 million tons|200,000 Soviet troops|20,000 Hungarians|2\.7 million|13 days|500,000 Warsaw Pact troops|Article 5|38th Parallel|Sputnik 1|Bizonia|Trizonia|Deutschmark|Operation Vittles|ABM Treaty|SALT 1|Shanghai Communiqué|Ostpolitik|Brezhnev Doctrine|Truman Doctrine|Marshall Plan|Cominform|Comecon|NATO|SEATO|Warsaw Pact|ExComm|Limited Test Ban Treaty|LTBT|Outer Space Treaty|Nuclear Non-Proliferation Treaty|NPT)\b/g;
+
+        function applyRecallMarkup(htmlString) {
+            return htmlString.replace(/(<[^>]+>)|([^<]+)/g, function(match, tag, text) {
+                if (tag) return tag;
+                return text.replace(keyTermsRegex, '<span class="recall-mask" onclick="this.classList.toggle(\'revealed\')">$1</span>');
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // 6. RENDERING FUNCTIONS
+        // ---------------------------------------------------------------------
+        function getBlocBadge(bloc) {
+            if (bloc === 'Western / US') {
+                return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-800 border border-blue-200">US / Western</span>';
+            }
+            if (bloc === 'Soviet / Eastern') {
+                return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-red-50 text-red-800 border border-red-200">USSR / Eastern</span>';
+            }
+            return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">Treaty / Diplomacy</span>';
+        }
+
+        function renderOrganisations(filterBloc = 'all') {
+            const grid = document.getElementById('orgs-grid');
+            const filtered = filterBloc === 'all' 
+                ? organisationsData 
+                : organisationsData.filter(item => item.bloc === filterBloc);
+
+            grid.innerHTML = filtered.map(item => `
+                <article class="card-item searchable-item bg-white border border-[#E6E2D8] rounded-2xl p-5 shadow-2xs hover:shadow-md transition flex flex-col justify-between" data-bloc="${item.bloc}">
+                    <div>
+                        <div class="flex items-start justify-between gap-2 mb-3">
+                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-zinc-100 text-zinc-600 font-display font-bold text-xs shrink-0">
+                                ${item.id}
+                            </span>
+                            ${getBlocBadge(item.bloc)}
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-zinc-900 leading-snug mb-3">
+                            ${item.title}
+                        </h3>
+                        <div class="space-y-2 text-xs sm:text-sm">
+                            <div class="bg-[#FAF9F6] border border-[#E6E2D8] rounded-xl px-3.5 py-2.5">
+                                <span class="font-semibold text-zinc-500 uppercase text-[10px] tracking-wider block mb-0.5">Year(s) / Dates</span>
+                                <span class="font-semibold text-zinc-900 leading-snug block">${applyRecallMarkup(item.years)}</span>
+                            </div>
+                            <div class="bg-[#FAF9F6] border border-[#E6E2D8] rounded-xl px-3.5 py-2.5">
+                                <span class="font-semibold text-zinc-500 uppercase text-[10px] tracking-wider block mb-0.5">Key Leaders</span>
+                                <span class="text-zinc-800 leading-snug block">${applyRecallMarkup(item.leaders)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3.5 pt-3 border-t border-zinc-100 text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                        <span class="font-semibold text-zinc-900 block mb-1 text-[11px] uppercase tracking-wider">Impact &amp; Actions</span>
+                        ${applyRecallMarkup(item.impact)}
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function renderChapters() {
+            const container = document.getElementById('chapters-list');
+            container.innerHTML = chaptersData.map(ch => `
+                <article class="chapter-block searchable-item bg-white border border-[#E6E2D8] rounded-3xl p-6 sm:p-8 shadow-2xs">
+                    <div class="flex flex-wrap items-center gap-2.5 mb-2">
+                        <span class="px-3 py-1 rounded-lg bg-zinc-900 text-white font-display font-bold text-xs tracking-wide">
+                            ${ch.number}
+                        </span>
+                        <span class="px-3 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 font-semibold text-xs">
+                            ${applyRecallMarkup(ch.period)}
+                        </span>
+                    </div>
+                    <h3 class="font-display text-xl sm:text-2xl font-bold text-zinc-900 mb-2">
+                        ${ch.title}
+                    </h3>
+                    <p class="text-sm sm:text-base text-zinc-600 mb-6 pb-5 border-b border-[#E6E2D8] leading-relaxed">
+                        ${applyRecallMarkup(ch.overview)}
+                    </p>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        ${ch.sections.map(sec => `
+                            <div class="bg-[#FAF9F6] border border-[#E6E2D8] rounded-2xl p-4 sm:p-5">
+                                <h4 class="font-display font-bold text-zinc-900 text-base mb-3 leading-snug">
+                                    ${applyRecallMarkup(sec.heading)}
+                                </h4>
+                                <ul class="space-y-2.5 text-xs sm:text-sm text-zinc-700 leading-relaxed list-disc pl-4 marker:text-zinc-400">
+                                    ${sec.points.map(pt => `<li>${applyRecallMarkup(pt)}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `).join('')}
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            const dotColors = {
+                'Western': 'bg-blue-700 ring-blue-100',
+                'Soviet': 'bg-red-700 ring-red-100',
+                'Diplomacy': 'bg-emerald-700 ring-emerald-100',
+                'Crisis': 'bg-amber-600 ring-amber-100'
+            };
+
+            container.innerHTML = timelineData.map((ev, index) => `
+                <div class="timeline-row searchable-item relative pl-6 sm:pl-8">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full ${dotColors[ev.category] || 'bg-zinc-800'} ring-4"></span>
+                    <div class="bg-[#FAF9F6] border border-[#E6E2D8] rounded-2xl p-4 sm:p-5 hover:bg-white transition">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                            <span class="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                                Event ${index + 1} • ${applyRecallMarkup(ev.date)}
+                            </span>
+                            <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-white border border-[#E6E2D8] text-zinc-700">
+                                ${ev.category}
+                            </span>
+                        </div>
+                        <h3 class="font-display text-base sm:text-lg font-bold text-zinc-900 mb-1 leading-snug">
+                            ${applyRecallMarkup(ev.title)}
+                        </h3>
+                        <p class="text-xs sm:text-sm text-zinc-700 leading-relaxed">
+                            ${applyRecallMarkup(ev.summary)}
+                        </p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initial Render
+        renderOrganisations('all');
+        renderChapters();
+        renderTimeline();
+
+        // ---------------------------------------------------------------------
+        // 7. INTERACTIVE CONTROLS: VIEW SWITCHER, BLOC FILTER, SEARCH, RECALL
+        // ---------------------------------------------------------------------
+        let currentView = 'all';
+        let recallMode = false;
+
+        function switchView(view) {
+            currentView = view;
+            const sections = document.querySelectorAll('.section-container');
+            const tabs = document.querySelectorAll('.view-tab');
+
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-zinc-900', 'text-white');
+                tab.classList.add('bg-[#FAF9F6]', 'text-zinc-700');
+            });
+
+            const activeTab = document.getElementById('tab-' + view);
+            if (activeTab) {
+                activeTab.classList.remove('bg-[#FAF9F6]', 'text-zinc-700');
+                activeTab.classList.add('bg-zinc-900', 'text-white');
+            }
+
+            sections.forEach(sec => {
+                if (view === 'all' || sec.dataset.section === view) {
+                    sec.classList.remove('hidden');
+                } else {
+                    sec.classList.add('hidden');
+                }
+            });
+        }
+
+        function filterOrgs(bloc) {
+            const buttons = document.querySelectorAll('.org-filter-btn');
+            buttons.forEach(btn => {
+                if (btn.dataset.filter === bloc) {
+                    btn.classList.remove('bg-white', 'border', 'border-[#E6E2D8]');
+                    btn.classList.add('bg-zinc-900', 'text-white');
+                } else {
+                    btn.classList.remove('bg-zinc-900', 'text-white');
+                    btn.classList.add('bg-white', 'border', 'border-[#E6E2D8]');
+                }
+            });
+            renderOrganisations(bloc);
+            const currentQuery = document.getElementById('search-input').value;
+            if (currentQuery.trim()) {
+                handleSearch(currentQuery);
+            }
+        }
+
+        function toggleActiveRecall() {
+            recallMode = !recallMode;
+            const body = document.body;
+            const btn = document.getElementById('recall-toggle-btn');
+            const dot = document.getElementById('recall-dot');
+            const banner = document.getElementById('recall-banner');
+
+            if (recallMode) {
+                body.classList.add('recall-active');
+                btn.classList.add('bg-amber-100', 'border-amber-300', 'text-amber-950');
+                btn.setAttribute('aria-pressed', 'true');
+                dot.classList.remove('bg-zinc-400');
+                dot.classList.add('bg-amber-600');
+                banner.classList.remove('hidden');
+                document.querySelectorAll('.recall-mask.revealed').forEach(el => el.classList.remove('revealed'));
+            } else {
+                body.classList.remove('recall-active');
+                btn.classList.remove('bg-amber-100', 'border-amber-300', 'text-amber-950');
+                btn.setAttribute('aria-pressed', 'false');
+                dot.classList.remove('bg-amber-600');
+                dot.classList.add('bg-zinc-400');
+                banner.classList.add('hidden');
+            }
+        }
+
+        function revealAllMasks() {
+            document.querySelectorAll('.recall-mask').forEach(el => el.classList.add('revealed'));
+        }
+
+        // Live Keyword Search with Yellow Highlighting
+        function removeHighlights(rootElement) {
+            const marks = rootElement.querySelectorAll('mark.search-hl');
+            marks.forEach(mark => {
+                const parent = mark.parentNode;
+                if (parent) {
+                    parent.replaceChild(document.createTextNode(mark.textContent), mark);
+                    parent.normalize();
+                }
+            });
+        }
+
+        function highlightTextNodes(element, regex) {
+            const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+            const textNodes = [];
+            let node;
+            while ((node = walker.nextNode())) {
+                if (node.nodeValue.trim().length > 0 && !node.parentElement.closest('script, style, mark')) {
+                    textNodes.push(node);
+                }
+            }
+
+            textNodes.forEach(textNode => {
+                const val = textNode.nodeValue;
+                if (regex.test(val)) {
+                    regex.lastIndex = 0;
+                    const frag = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    let match;
+                    while ((match = regex.exec(val)) !== null) {
+                        if (match.index > lastIndex) {
+                            frag.appendChild(document.createTextNode(val.slice(lastIndex, match.index)));
+                        }
+                        const mark = document.createElement('mark');
+                        mark.className = 'search-hl';
+                        mark.textContent = match[0];
+                        frag.appendChild(mark);
+                        lastIndex = regex.lastIndex;
+                    }
+                    if (lastIndex < val.length) {
+                        frag.appendChild(document.createTextNode(val.slice(lastIndex)));
+                    }
+                    textNode.parentNode.replaceChild(frag, textNode);
+                }
+            });
+        }
+
+        function handleSearch(query) {
+            const clearBtn = document.getElementById('clear-search-btn');
+            const statusBanner = document.getElementById('search-status');
+            const statusText = document.getElementById('search-status-text');
+            const items = document.querySelectorAll('.searchable-item');
+
+            removeHighlights(document.getElementById('booklet-content'));
+
+            const trimmed = query.trim();
+            if (!trimmed) {
+                clearBtn.classList.add('hidden');
+                statusBanner.classList.add('hidden');
+                items.forEach(item => item.classList.remove('hidden'));
+                return;
+            }
+
+            clearBtn.classList.remove('hidden');
+            if (currentView !== 'all') {
+                switchView('all');
+            }
+
+            const escaped = trimmed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(escaped, 'gi');
+            let matchCount = 0;
+
+            items.forEach(item => {
+                const text = item.textContent || '';
+                if (regex.test(text)) {
+                    regex.lastIndex = 0;
+                    item.classList.remove('hidden');
+                    highlightTextNodes(item, regex);
+                    matchCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            statusBanner.classList.remove('hidden');
+            statusText.innerHTML = `Found <strong>${matchCount}</strong> matching ${matchCount === 1 ? 'entry' : 'entries'} for “<strong>${trimmed.replace(/</g, '&lt;')}</strong>”`;
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('search-input');
+            input.value = '';
+            handleSearch('');
+            input.focus();
+        }
+
+        // ---------------------------------------------------------------------
+        // 8. DOWNLOAD STANDALONE HTML FILE
+        // ---------------------------------------------------------------------
+        function downloadHTML() {
+            try {
+                const docClone = document.documentElement.cloneNode(true);
+                // Reset body recall state & remove temporary highlights in exported file
+                const clonedBody = docClone.querySelector('body');
+                if (clonedBody) {
+                    clonedBody.classList.remove('recall-active');
+                }
+                const clonedContent = docClone.querySelector('#booklet-content');
+                if (clonedContent) {
+                    removeHighlights(clonedContent);
+                }
+                // Ensure password gate is active and clean on downloaded file
+                const clonedGate = docClone.querySelector('#password-gate');
+                if (clonedGate) {
+                    clonedGate.style.display = 'flex';
+                    clonedGate.classList.remove('opacity-0', 'pointer-events-none');
+                }
+                const clonedInput = docClone.querySelector('#password-input');
+                if (clonedInput) {
+                    clonedInput.setAttribute('value', '');
+                }
+                const htmlContent = '<!DOCTYPE html>\n' + docClone.outerHTML;
+                const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'A-World-Divided-1943-72-Revision-Booklet.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } catch (err) {
+                console.error('Download failed:', err);
+            }
+        }
+    </script>
+</body>
+</html>
